@@ -1,6 +1,5 @@
 const Card = require('../models/Card')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
 
 // @desc get all Cards
 // @route GET /Cards

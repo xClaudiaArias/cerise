@@ -1,6 +1,5 @@
 const Payment = require('../models/Payment')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
 
 // @desc get all Payments
 // @route GET /Payments

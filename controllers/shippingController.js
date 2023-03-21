@@ -1,6 +1,5 @@
 const Shipping = require('../models/Shipping')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
 
 // @desc get all Shippings
 // @route GET /Shippings

@@ -1,6 +1,5 @@
 const Billing = require('../models/Billing')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
 
 // @desc get all Billings
 // @route GET /Billings

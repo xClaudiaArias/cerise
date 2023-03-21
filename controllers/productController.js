@@ -1,6 +1,6 @@
 const Product = require('../models/Product')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
+
 
 // @desc get all Product
 // @route GET /Product
