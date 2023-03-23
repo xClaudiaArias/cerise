@@ -52,7 +52,7 @@ const createNewCustomer = asyncHandler(async (req, res) => {
     if (customer) {
         res.status(201).json({message: `New Customer ${username} created`})
     } else {
-        res.status(400).json({message: "Invalid user data received"})
+        res.status(400).json({message: "Invalid customer data received"})
     }
 
 })

@@ -27,10 +27,6 @@ const shipping_addrSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        hasShipped: {
-            type: Boolean,
-            default: false
-        },
     },
     { timestamps: true }
 )
