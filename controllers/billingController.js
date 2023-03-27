@@ -21,9 +21,9 @@ const getAllBillings = asyncHandler(async (req, res) => {
 // @access Private
 
 const createNewBilling = asyncHandler(async (req, res) => {
-    const { order, street, street2, city, state, zipcode } = req.body
+    const {order, street, street2, city, state, zipcode } = req.body
 
-    if ( !order || !street || !street2 || !city || !state || !zipcode ) {
+    if (!order || !street || !street2 || !city || !state || !zipcode ) {
         return res.status(400).json({message: "All fields are required."})
     }
 
@@ -44,9 +44,9 @@ const createNewBilling = asyncHandler(async (req, res) => {
 // @access Private
 
 const updateBilling = asyncHandler(async (req, res) => {
-    const { id, order, street, street2, city, state, zipcode, hasShipped } = req.body
+    const { id, order, street, street2, city, state, zipcode } = req.body
 
-    if( !id || !order || !street || !street2 || !city || !state || !zipcode || typeof hasShipped !== 'boolean') {
+    if( !id || !order || !street || !street2 || !city || !state || !zipcode) {
         return res.status(400).json({message: "All fields are required"})
     }
 
@@ -61,7 +61,6 @@ const updateBilling = asyncHandler(async (req, res) => {
     billing.city = city
     billing.state = state
     billing.zipcode = zipcode
-    billing.hasShipped = hasShipped
 
     const updatedBilling = await billing.save()
 

@@ -62,7 +62,7 @@ const updateShipping = asyncHandler(async (req, res) => {
     shipping.state = state
     shipping.zipcode = zipcode
 
-    const updatedShipping = await Shipping.save()
+    const updatedShipping = await shipping.save()
 
     res.json(`'${updatedShipping.id}' updated`)
 })

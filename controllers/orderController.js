@@ -1,5 +1,4 @@
 const Order = require('../models/Order')
-const Billing = require('../models/Billing')
 const asyncHandler = require('express-async-handler')
 
 
@@ -22,29 +21,28 @@ const getAllOrders = asyncHandler(async (req, res) => {
 // @access Private
 
 const createNewOrder = asyncHandler(async (req, res) => {
-    const { customer, products, date, total } = req.body
+    const { customer, products, total } = req.body
 
-    if (!customer || !Array.isArray(products) || !products.length || !date || !total) {
-        return res.status(400).json({message: "All fields are required"})
+    // Confirm data
+    if ( !customer || !Array.isArray(products) || !products.length || !total) {
+        return res.status(400).json({ message: 'All fields are required' })
     }
 
-    // check for duplicates 
+    // Check for duplicate customer
     const duplicate = await Order.findOne({ customer }).lean().exec()
 
     if (duplicate) {
-        return res.status(409).json({message: 'Duplicate customer'})
+        return res.status(409).json({ message: 'Duplicate customer title' })
     }
 
-    const orderObject = {customer, products, date, total }
+    // Create and store the new user 
+    const order = await Order.create({ customer, products, total })
 
-    const order = await Order.create(orderObject)
-
-    if(order) {
-        res.status(201).json({message: `customer ${customer} has a new order ${order}`})
+    if (order) { // Created 
+        return res.status(201).json({ message: 'New Order created' })
     } else {
-        res.status(400).json({message: 'Invalid order data received'})
+        return res.status(400).json({ message: 'Invalid note data received' })
     }
-
 })
 
 // @desc updateOrders
@@ -52,10 +50,10 @@ const createNewOrder = asyncHandler(async (req, res) => {
 // @access Private
 
 const updateOrder = asyncHandler(async (req, res) => {
-    const { id, customer, products, date, total } = req.body
+    const { id, customer, products, total } = req.body
 
     // confirm data
-    if (!id || !customer || !date || !Array.isArray(products) || !products.length) {
+    if (!id || !customer || !Array.isArray(products) || !products.length) {
         return res.status(400).json({message: "All fields are required"})
     }
 
@@ -65,16 +63,8 @@ const updateOrder = asyncHandler(async (req, res) => {
         return res.status(400).json({message: "Order Not Found"})
     }
 
-    const duplicate = await User.findOne({ id }).lean().exec()
-
-    // Allow update to original user
-    if(duplicate?._id.toString() !== id) {
-        return res.status(409).json({message: "Duplicate customer"})
-    }
-
     order.customer = customer
     order.products = products
-    order.date = date
     order.total = total
 
 
@@ -94,8 +84,7 @@ const deleteOrder = asyncHandler(async (req, res) => {
     if (!id) {
         return res.status(400).json({ message: 'Order ID required' })
     }
-
-    // Confirm note exists to delete 
+    
     const order = await Order.findById(id).exec()
 
     if (!order) {
@@ -104,7 +93,7 @@ const deleteOrder = asyncHandler(async (req, res) => {
 
     const result = await Order.deleteOne()
 
-    const reply = `Order '${result.title}' with ID ${result._id} deleted`
+    const reply = `Order deleted`
 
     res.json(reply)
 })

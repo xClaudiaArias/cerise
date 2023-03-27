@@ -9,11 +9,6 @@ const cardSchema = new mongoose.Schema(
             required: true,
             ref: 'Customer'
         },
-        order: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Order'
-        },
         holderName: {
             type: String,
             required: true

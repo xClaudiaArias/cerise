@@ -26,13 +26,11 @@ const billing_addrSchema = new mongoose.Schema(
         zipcode: {
             type: String,
             required: true
-        },
-        hasShipped: {
-            type: Boolean,
-            default: false
-        },
+        }
     },
     { timestamps: true }
 )
 
 module.exports = mongoose.model('Billing', billing_addrSchema)
+
+

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose)
+// const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 const orderSchema = new mongoose.Schema(
     {
@@ -11,16 +11,8 @@ const orderSchema = new mongoose.Schema(
         products: [{
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            amount: {
-                type: Number,
-                default: 0,
-                required: true
-            },
             ref: 'Product'
         }],
-        date: {
-            type: Date,
-        },
         total: {
             type: Number,
             required: true,
@@ -41,11 +33,11 @@ function setPrice(num){
     return num*100;
 }
 
-orderSchema.plugin(AutoIncrement, {
-    inc_field: 'order',
-    id: 'orderNums',
-    start_seq: 0
-})
+// orderSchema.plugin(AutoIncrement, {
+//     inc_field: 'order',
+//     id: 'orderNums',
+//     start_seq: 0
+// })
 
 
 module.exports = mongoose.model('Order', orderSchema)

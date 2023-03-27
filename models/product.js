@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
         required: true,
         ref: 'Category'
     },
-    product_name: {
+    productName: {
         type: String,
         required: true
     },
@@ -18,19 +18,20 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    size: {
+    size: [{
         type: String,
         required: true
-    },
+    }],
     price: {
         type: Number,
         required: true,
+        currency: "USD",
         get: getPrice, 
         set: setPrice
     },
     in_stock: {
         type: Boolean,
-        default: true
+        default: false
     }
 })
 
