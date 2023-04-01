@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Account = () => {
-  return (
-    <div>Account</div>
-  )
+class Account extends React.Component {
+  render () {
+    return (
+      <div>Account Cerise</div>
+    )
+  }
 }
 
 export default Account

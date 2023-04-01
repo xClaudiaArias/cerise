@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Register = () => {
-  return (
-    <div>Register</div>
-  )
+class Register extends React.Component {
+  render () {
+    return (
+      <div>Register Cerise</div>
+    )
+  }
 }
 
 export default Register

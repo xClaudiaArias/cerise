@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Cart = () => {
-  return (
-    <div>Cart</div>
-  )
+class Cart extends React.Component {
+  render () {
+    return (
+      <div>Cart Cerise</div>
+    )
+  }
 }
 
 export default Cart

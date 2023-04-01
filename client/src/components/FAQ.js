@@ -1,9 +1,11 @@
 import React from 'react'
 
-const FAQ = () => {
-  return (
-    <div>FAQ</div>
-  )
+class FAQ extends React.Component {
+  render () {
+    return (
+      <div>FAQ Cerise</div>
+    )
+  }
 }
 
 export default FAQ

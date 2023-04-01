@@ -1,9 +1,11 @@
 import React from 'react'
 
-const RecentPurchases = () => {
-  return (
-    <div>RecentPurchases</div>
-  )
+class RecentPurchases extends React.Component {
+  render () {
+    return (
+      <div>RecentPurchases Cerise</div>
+    )
+  }
 }
 
 export default RecentPurchases

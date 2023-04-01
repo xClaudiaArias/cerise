@@ -1,9 +1,12 @@
 import React from 'react'
 
-const Wishlist = () => {
-  return (
-    <div>Wishlist</div>
-  )
+class Wishlist extends React.Component {
+  render () {
+    return (
+      <div>Wishlist Cerise</div>
+    )
+  }
 }
+
 
 export default Wishlist

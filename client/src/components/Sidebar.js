@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Sidebar = () => {
-  return (
-    <div>Sidebar</div>
-  )
+class Sidebar extends React.Component {
+  render () {
+    return (
+      <div>Sidebar Cerise</div>
+    )
+  }
 }
 
 export default Sidebar

@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
+class Profile extends React.Component {
+  render () {
+    return (
+      <div>Profile Cerise</div>
+    )
+  }
 }
 
 export default Profile
