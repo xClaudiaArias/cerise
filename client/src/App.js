@@ -19,38 +19,54 @@ import {useState} from 'react';
 
 
 
-function App() {
+// function App() {
+//   const [customer, setLoginCustomer] = useState({})
+//   return (
+//     <div className="App">
+//           {console.log(customer, " :customer")}
+//       {/**/}
+//       <Routes>
+//         <Route path="/" element={<Layout />}> 
+//           <Route index element={<Home />} />
+//           <Route path="search" element={<Search />} />
+
+//           {/* 👇 switch statement here  */}
+//           <Route path="register" element={<Register />} />
+
+//           {/* 👆 switch statement here  */}
+
+//           <Route path="wishlist" element={<Wishlist />} />
+//           <Route path="cart" element={<Cart />} />
+
+
+//           {/* Categories NavBar */}
+//             <Route path="/categories/babies" element={<Babies />} />
+//             <Route path="/categories/toddlers" element={<Toddlers />} />
+//             <Route path="/categories/kids" element={<Kids />} />
+//             <Route path="/categories/accessories" element={<Accessories />} />
+//           {/* END categories NavBar*/}
+
+//         </Route> {/*end LAYOUT route*/}
+//       </Routes>
+//       {/* <Footer /> */}
+//     </div>
+//   );
+// }
+
+
+const App = () => {
   const [customer, setLoginCustomer] = useState({})
+
   return (
-    <div className="App">
-          {console.log(customer, " :customer")}
-      {/**/}
+    <>
       <Routes>
-        <Route path="/" element={<Layout />}> 
-          <Route index element={<Home />} />
-          <Route path="search" element={<Search />} />
+        <Route path="/" element={customer && customer?._id ? <Homepage/> : <Login setLoginCustomer={setLoginCustomer}/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login setLoginCustomer={setLoginCustomer} /> }  />
 
-          {/* 👇 switch statement here  */}
-          <Route path="register" element={<Register />} />
-
-          {/* 👆 switch statement here  */}
-
-          <Route path="wishlist" element={<Wishlist />} />
-          <Route path="cart" element={<Cart />} />
-
-
-          {/* Categories NavBar */}
-            <Route path="/categories/babies" element={<Babies />} />
-            <Route path="/categories/toddlers" element={<Toddlers />} />
-            <Route path="/categories/kids" element={<Kids />} />
-            <Route path="/categories/accessories" element={<Accessories />} />
-          {/* END categories NavBar*/}
-
-        </Route> {/*end LAYOUT route*/}
       </Routes>
-      {/* <Footer /> */}
-    </div>
-  );
+    </>
+  )
 }
 
 export default App;

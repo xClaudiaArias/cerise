@@ -11,7 +11,6 @@ const Login = ({ setLoginCustomer }) => {
   const navigate = useNavigate()
 
   const handleChange = e => {
-    e.preventDefault()
     const {name, value} = e.target
     setCustomer({
       ...customer,
@@ -19,15 +18,13 @@ const Login = ({ setLoginCustomer }) => {
     })
   }
 
-  const handleSubmit = async e => {
+  const handleLogin = async e => {
     console.log(e)
     try {
       axios.post('http://127.0.0.1:8000/login', customer)
       .then(res => {
-        console.log(res)
-        alert(res.data.message)
-        console.log(res.data.message)
-        setLoginCustomer(res.data.customer)
+        console.log(res.data)
+        setLoginCustomer(res.data)
         navigate('/')
       })
     } catch (err) {
@@ -42,6 +39,10 @@ const Login = ({ setLoginCustomer }) => {
       }
     }
 
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
   }
 
   return (
@@ -64,7 +65,7 @@ const Login = ({ setLoginCustomer }) => {
             <p>Don't have an account? <Link to="/register">Register instead!</Link></p>
 
 
-            <button type='submit'>Login</button>
+            <button type='submit' onClick={handleLogin}>Login</button>
           </form>
         </div>
       </div>
