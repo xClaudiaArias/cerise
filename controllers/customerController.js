@@ -1,6 +1,7 @@
 const Customer = require('../models/Customer')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // @desc get all customers
 // @route GET /customers
@@ -19,10 +20,11 @@ const getAllCustomers = asyncHandler(async (req, res) => {
 // @access Private
 
 const createNewCustomer = asyncHandler(async (req, res) => {
-    const { firstname, lastname, username, email, password, phone } = req.body
-    
+    // const { firstname, lastname, username, email, password, phone } = req.body
+    const { firstname, lastname, username, email, password } = req.body
     // confirm data 
-    if ( !firstname || !lastname || !username || !email || !password || !phone ) {
+    // if ( !firstname || !lastname || !username || !email || !password || !phone ) {
+    if ( !firstname || !lastname || !username || !email || !password) {
         return res.status(400).json({message: "All fields are required"})
     }
 
@@ -41,16 +43,27 @@ const createNewCustomer = asyncHandler(async (req, res) => {
 
     const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
 
+    // create token 
+
+
     // define customer object
 
-    const customerObject = { firstname, lastname, email, username, "password": hashedPwd, phone }
-
+    // const customerObject = { firstname, lastname, email, username, "password": hashedPwd, phone }
+    const customerObject = { firstname, lastname, email, username, "password": hashedPwd}
     // create and store the new customer
 
     const customer = await Customer.create(customerObject)
 
     if (customer) {
-        res.status(201).json({message: `New Customer ${username} created`})
+        const accessToken = jwt.sign(
+            {customer_id: customer._id, username },
+            process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn: "2h"}
+        );
+    
+        customer.token = accessToken;
+    
+        res.status(200).json(customer)    
     } else {
         res.status(400).json({message: "Invalid customer data received"})
     }

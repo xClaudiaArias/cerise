@@ -4,7 +4,7 @@ const app = express()
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const corsOptions = require('./config/corsOptions')
+// const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3500
@@ -13,12 +13,12 @@ console.log(process.env.NODE_ENV)
 
 connectDB()
 
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, 'public')))
 
-
+app.use('/', require('./routes/root'))
 app.use('/customers', require('./routes/customerRoutes'))
 app.use('/billing', require('./routes/billingRoutes'))
 app.use('/cards', require('./routes/cardRoutes'))
@@ -27,6 +27,8 @@ app.use('/orders', require('./routes/orderRoutes'))
 app.use('/payments', require('./routes/paymentRoutes'))
 app.use('/products', require('./routes/productRoutes'))
 app.use('/shipping', require('./routes/shippingRoutes'))
+app.use('/login', require('./routes/loginRoutes'))
+app.use('/register', require('./routes/registerRoutes'))
 
 
 app.all('*', (req, res) => {

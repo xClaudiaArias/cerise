@@ -3,7 +3,14 @@ import React from 'react'
 class Home extends React.Component {
   render (){
     return (
-      <h1 className="home-h1">Home</h1>
+      <>
+        <div className="home-container">
+          <div className="special-container">BABIES</div>
+          <div className="special-container">TODDLERS</div>
+          <div className="special-container">KIDS</div>
+          <div className="special-container">ACCESSORIES</div>
+        </div>
+      </>
     )
   }
 }

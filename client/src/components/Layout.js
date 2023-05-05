@@ -4,26 +4,27 @@ import { Outlet, Link } from 'react-router-dom';
 const Layout = () => {
     return (
         <>
-            <nav>
-                <ul>
+            <div className='layout__navBar'>
+                <ul className='layout__navLeft'>
                     <li>
-                        <Link to="/wishlist">WishList</Link>
+                        <Link to="/wishlist">Wishlist</Link>
                     </li>
 
                     <li>
-                        <Link to="/account">Account</Link>
-                        {/* <ul>
-                            <li><Link to="/profile">Profile</Link></li>
-                            <li><Link to="/recent-purchases">Recent Purchases</Link></li>
-                            <li><Link to="/account-settings">Account Settings</Link></li>
-                        </ul> */}
+                        <Link to="/register">Register</Link>
                     </li>
+                    {/* <li>
+                        <Link to="/login">Login</Link>
+                    </li> */}
+                </ul>
 
-
-                    <li>
-                        <Link to="/">Home</Link>
+                <ul className='layout__navCenter'>
+                    <li className="layout__home-link">
+                        <Link to="/">🍒</Link>
                     </li>
+                </ul>
 
+                <ul className='layout__navRight'>
                     <li>
                         <Link to="/search">Search</Link>
                     </li>
@@ -33,11 +34,11 @@ const Layout = () => {
                         <Link to="/cart">Cart</Link>
                     </li>
                 </ul>
-            </nav>
+            </div>
 
             {/* Categories Nav */}
             
-            <div id="top-bar">
+            <div className="layout__top-bar">
                 <ul> 
                     <li>
                         <Link to="/categories/babies">Babies</Link>

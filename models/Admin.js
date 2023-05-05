@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const customerSchema = new mongoose.Schema(
+const adminSchema = new mongoose.Schema(
     {
         firstname: {
             type: String,
@@ -22,19 +22,12 @@ const customerSchema = new mongoose.Schema(
             type: String,
             required: false
         },
-        // phone: {
-        //     type: String,
-        //     required: false
-        // },
         active: {
             type: Boolean,
             default: true
-        },
-        token: {
-            type: String
         }
     },
     { timestamps : true }
 )
 
-module.exports = mongoose.model('Customer', customerSchema )
+module.exports = mongoose.model('Admin', adminSchema )
