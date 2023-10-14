@@ -1,4 +1,4 @@
-require('dotenv').config()
+c
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -18,6 +18,8 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, 'public')))
 
+
+// ROUTES
 app.use('/', require('./routes/root'))
 app.use('/customers', require('./routes/customerRoutes'))
 app.use('/billing', require('./routes/billingRoutes'))
@@ -29,6 +31,10 @@ app.use('/products', require('./routes/productRoutes'))
 app.use('/shipping', require('./routes/shippingRoutes'))
 app.use('/login', require('./routes/loginRoutes'))
 app.use('/register', require('./routes/registerRoutes'))
+
+app.use('/admin-login', require('./routes/admin-loginRoutes'))
+app.use('/admin-register', require('./routes/adminRoutes'))
+app.use('/admin-dash', require('./routes/adminRoutes'))
 
 
 app.all('*', (req, res) => {

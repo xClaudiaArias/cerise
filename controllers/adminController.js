@@ -1,28 +1,30 @@
 const Admin = require('../models/Admin')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-// @desc get all cdmins
-// @route GET /cdmins
+// @desc get all admins
+// @route GET /admins
 // @access Private
 
 const getAllAdmins = asyncHandler(async (req, res) => {
-    const cdmins = await Admin.find().select('-password').lean()
+    const admins = await Admin.find().select('-password').lean()
     if (!admins?.length) {
         return res.status(400).json({message: "No admins found"})
     }
     res.json(admins)
 })
 
-// @desc create newall cdmins
-// @route POST /cdmins
+// @desc create newall admins
+// @route POST /admins
 // @access Private
 
 const createNewAdmin = asyncHandler(async (req, res) => {
+    // const { firstname, lastname, username, email, password, phone } = req.body
     const { firstname, lastname, username, email, password } = req.body
-    
     // confirm data 
-    if ( !firstname || !lastname || !username || !email || !password ) {
+    // if ( !firstname || !lastname || !username || !email || !password || !phone ) {
+    if ( !firstname || !lastname || !username || !email || !password) {
         return res.status(400).json({message: "All fields are required"})
     }
 
@@ -33,6 +35,7 @@ const createNewAdmin = asyncHandler(async (req, res) => {
     if (duplicateUsername) {
         return res.status(409).json({message: 'An account with this username already exists'})
     }
+
     if (duplicateEmail) {
         return res.status(409).json({message: 'An account with this email already exists'})
     }
@@ -41,24 +44,32 @@ const createNewAdmin = asyncHandler(async (req, res) => {
 
     const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
 
-    // define cdmin object
+    // define admin object
 
-    const adminObject = { firstname, lastname, email, username, "password": hashedPwd, phone }
-
-    // create and store the new cdmin
+    // const adminObject = { firstname, lastname, email, username, "password": hashedPwd, phone }
+    const adminObject = { firstname, lastname, email, username, "password": hashedPwd}
+    // create and store the new admin
 
     const admin = await Admin.create(adminObject)
 
     if (admin) {
-        res.status(201).json({message: `New Admin ${username} created`})
+        const accessToken = jwt.sign(
+            {admin_id: admin._id, username },
+            process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn: "2h"}
+        );
+    
+        admin.token = accessToken;
+    
+        res.status(200).json(admin)    
     } else {
         res.status(400).json({message: "Invalid admin data received"})
     }
 
 })
 
-// @desc updatecdmins
-// @route PATCH /cdmins
+// @desc updatecustomers
+// @route PATCH /customers
 // @access Private
 
 const updateAdmin = asyncHandler(async (req, res) => {
@@ -77,7 +88,7 @@ const updateAdmin = asyncHandler(async (req, res) => {
 
     const duplicate = await Admin.findOne({ username }).lean().exec()
 
-    // Allow update to original cdmin
+    // Allow update to original admin
     if(duplicate && duplicate?._id.toString() !== id) {
         return res.status(409).json({message: "Duplicate username"})
     }
@@ -86,7 +97,6 @@ const updateAdmin = asyncHandler(async (req, res) => {
     admin.lastname = lastname
     admin.email = email
     admin.username = username
-    admin.phone = phone
     admin.active = active
 
     if (password) {
@@ -99,8 +109,8 @@ const updateAdmin = asyncHandler(async (req, res) => {
     res.json({message: `${updatedAdmin.username} updated`})
 })
 
-// @desc PATCH cdmins
-// @route POST /cdmins
+// @desc PATCH customers
+// @route POST /customers
 // @access Private
 
 const deleteAdmin = asyncHandler(async (req, res) => {
@@ -114,7 +124,7 @@ const deleteAdmin = asyncHandler(async (req, res) => {
 
     // .....
 
-    // define cdmin
+    // define admin
     const admin = await Admin.findById(id).exec()
 
     if (!admin) {

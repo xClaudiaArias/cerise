@@ -6,8 +6,9 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import Login from './components/Login';
-import Admin from './components/Admin';
+import { Admin } from 'react-admin';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AdminLogin from './features/auth/AdminLogin';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,7 +20,7 @@ root.render(
       <Routes>
         <Route path="/*" element={<App/>} />
         <Route path="/login" element={<Login setLoginCustomer="Hello"/>} />
-        <Route path='/admin' element={<Admin/>} />
+        <Route path='/admin-login' element={<Admin loginPage={AdminLogin} authProvider={authProvider} />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

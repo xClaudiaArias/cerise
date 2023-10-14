@@ -22,10 +22,6 @@ const customerSchema = new mongoose.Schema(
             type: String,
             required: false
         },
-        // phone: {
-        //     type: String,
-        //     required: false
-        // },
         active: {
             type: Boolean,
             default: true
